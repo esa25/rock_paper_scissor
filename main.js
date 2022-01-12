@@ -6,6 +6,7 @@ const computerChoiceDisplay = document.createElement('h1')
 const computerPointsDisplay = document.createElement('h2')
 const resultDisplay = document.createElement('h1')
 const winnerDisplay = document.createElement('h1')
+const restart = document.createElement('h1')
 const gameGrid = document.getElementById('game')
 gameGrid.append(userChoiceDisplay,userPointsDisplay, computerChoiceDisplay, computerPointsDisplay, resultDisplay,  winnerDisplay)
 
@@ -18,13 +19,15 @@ let computerChoice
 // creating a function for te user's choice as well as displaying it in the html 
 const handleClick = (e) => {
     userChoice = e.target.id
-    userChoiceDisplay.innerHTML = 'User choice: ' + userChoice
+    userChoiceDisplay.innerHTML = 'User choice: ' + userChoice;
     generateComputerChoice()
-    playRound()
+    checkWinner()
     addPoint()
     computerPointsDisplay.textContent = `Computer Score: ${compPoints}`;
     userPointsDisplay.textContent = `Your Score: ${userPoints}`;
+    ++rounds;
     results()
+    removeButtons()
 }
 
 // creating a function for the comptuer choice that is developed randomly through Math.random
@@ -43,12 +46,17 @@ for(let i=0; i < choices.length; i++) {
     button.innerHTML = choices[i]
     button.addEventListener('click', handleClick)
     gameGrid.appendChild(button)
+
+    function removeButtons() {
+        if (rounds == 5) {
+            button.removeEventListener('click', handleClick);
+        }
+    }
 }
 
 // creating a function to show all the results of the game 
 // once the user chooses a choice, it displays whether or not the user won, lost, or a tie
-const playRound = () => {
-
+const checkWinner = () => {
     if (userChoice === "rock") {
         if (computerChoice === "paper") {
             resultDisplay.innerHTML = "You lost this round, paper beats rock.";
@@ -78,15 +86,6 @@ const playRound = () => {
     }
     }
 
-// need to creata function that plays the game 5 times..
-function game() {  
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-}
-
 // need to create a function that also keeps track of points
 function addPoint() {
     if (resultDisplay.innerHTML.includes('You lost this round')) {
@@ -101,17 +100,21 @@ function addPoint() {
 
 // need to create a function that tells you if you lost, won, or tied from all 5 rounds
 // determine when the games stop based on the total points of either computer or user reaching
-function results() {
-    if(userPoints > compPoints) {
-        winnerDisplay.innerHTML = "You won the game";
-    } else if (userPoints < compPoints) {
-        winnerDisplay.innerHTML = "You lost the game, maybe next time!";
-    }
-    else if (userPoints == compPoints) {
-        winnerDisplay.innerHTML = "I's a tie!";
+
+function results () {
+    if (rounds == 5) {
+        if(userPoints > compPoints) {
+            winnerDisplay.innerHTML = "You won the game";
+        } else if (userPoints < compPoints) {
+            winnerDisplay.innerHTML = "You lost the game, maybe next time!";
+        }
+        else if (userPoints == compPoints) {
+            winnerDisplay.innerHTML = "It's a tie!";
+        }
     }
 }
 
+
 let userPoints = 0;
 let compPoints = 0; 
-
+let rounds = 0;
