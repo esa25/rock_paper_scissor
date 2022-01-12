@@ -40,6 +40,7 @@ const generateComputerChoice = () => {
 // creating a button for all the choices that user can pick 
 // and using an event listener to trigger the result of choice 
 // appending the button into the div (gameGrid)
+// remove button once user plays 5 times
 for(let i=0; i < choices.length; i++) {
     const button = document.createElement('button')
     button.id = choices[i]
@@ -100,7 +101,6 @@ function addPoint() {
 
 // need to create a function that tells you if you lost, won, or tied from all 5 rounds
 // determine when the games stop based on the total points of either computer or user reaching
-
 function results () {
     if (rounds == 5) {
         if(userPoints > compPoints) {
