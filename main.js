@@ -6,7 +6,6 @@ const computerChoiceDisplay = document.createElement('h1')
 const computerPointsDisplay = document.createElement('h2')
 const resultDisplay = document.createElement('h1')
 const winnerDisplay = document.createElement('h1')
-const restart = document.createElement('h1')
 const gameGrid = document.getElementById('game')
 gameGrid.append(userChoiceDisplay,userPointsDisplay, computerChoiceDisplay, computerPointsDisplay, resultDisplay,  winnerDisplay)
 
@@ -101,6 +100,7 @@ function addPoint() {
 
 // need to create a function that tells you if you lost, won, or tied from all 5 rounds
 // determine when the games stop based on the total points of either computer or user reaching
+
 function results () {
     if (rounds == 5) {
         if(userPoints > compPoints) {
@@ -113,7 +113,6 @@ function results () {
         }
     }
 }
-
 
 let userPoints = 0;
 let compPoints = 0; 
